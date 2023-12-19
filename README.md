@@ -1,1 +1,1 @@
-Data Structure and Algorithm.
+Data Structure and Algorithms.
