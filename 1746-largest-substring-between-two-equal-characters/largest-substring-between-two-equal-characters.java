@@ -45,17 +45,35 @@ class Solution {
     // }
 
     public int maxLengthBetweenEqualCharacters(String s) {
-        Map<Character, Integer> firstIndex = new HashMap();
-        int ans = -1;
+        // Map<Character, Integer> firstIndex = new HashMap();
+        // int ans = -1;
         
-        for (int i = 0; i < s.length(); i++) {
-            if (firstIndex.containsKey(s.charAt(i))) {
-                ans = Math.max(ans, i - firstIndex.get(s.charAt(i)) - 1);
+        // for (int i = 0; i < s.length(); i++) {
+        //     if (firstIndex.containsKey(s.charAt(i))) {
+        //         ans = Math.max(ans, i - firstIndex.get(s.charAt(i)) - 1);
+        //     } else {
+        //         firstIndex.put(s.charAt(i), i);
+        //     }
+        // }
+        
+        // return ans;
+        int[] v1 = new int[26];
+        int[] v2 = new int[26];
+        Arrays.fill(v1, -1);
+        Arrays.fill(v2, -1);
+        int ans = -1;
+
+        for (int i = 0; i < s.length(); ++i) {
+            int temp = s.charAt(i) - 'a';
+
+            if (v1[temp] == -1) {
+                v1[temp] = i;
             } else {
-                firstIndex.put(s.charAt(i), i);
+                v2[temp] = i;
+                ans = Math.max(ans, v2[temp] - v1[temp] - 1);
             }
         }
-        
+
         return ans;
     }
 }
