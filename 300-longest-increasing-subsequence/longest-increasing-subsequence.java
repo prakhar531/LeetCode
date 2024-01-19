@@ -41,6 +41,8 @@ class Solution {
                 else
                     j = m;
             }
+
+            
             tails[i] = x;
             if (i == size) ++size;
         }
