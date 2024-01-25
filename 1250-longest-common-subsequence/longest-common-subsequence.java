@@ -37,6 +37,7 @@ class Solution {
     //     return lcs(str1,str2,n,m,dp);
     // }
 
+    //Tabulation-best approach
     public int longestCommonSubsequence(String str1, String str2) {
         int n=str1.length();
         int m=str2.length();
