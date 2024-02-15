@@ -12,10 +12,10 @@ class Solution {
         for(int i=nums.length-1;i>=2;i--){
             if(nums[i]<prefix[i-1]){
                 ans=prefix[i];
-                break;
+                return ans;
             } 
         }
 
-        return ans==0 ? -1 : ans;
+        return -1;
     }
 }
