@@ -1,5 +1,4 @@
 class Solution {
-
     class Solve implements Comparable<Solve> {
         int num;
         int count;
@@ -23,14 +22,13 @@ class Solution {
 
         while(k>0){
             Solve curr=pq.poll();
+            if(curr.count==k) break;
             if(curr.count>1){
                 curr.count--;
                 pq.add(curr);
             }
             k--;
         }
-
         return pq.size();
-        
     }
 }
