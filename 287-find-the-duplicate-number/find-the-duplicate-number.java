@@ -9,14 +9,34 @@ class Solution {
     //     return -1;
     // }
 
-    public int findDuplicate(int[] nums) {
-        int n=nums.length;
-        int count[]=new int[n];
+    //Using a count array to store count- 98% beats
+    // public int findDuplicate(int[] nums) {
+    //     int n=nums.length;
+    //     int count[]=new int[n];
 
-        for(int num:nums){
-            if(count[num]!=0) return num;
-            count[num]++;
+    //     for(int num:nums){
+    //         if(count[num]!=0) return num;
+    //         count[num]++;
+    //     }
+    //     return -1;
+    // }
+
+    public int findDuplicate(int[] nums) {
+        int slow=nums[0];
+        int fast=nums[0];
+
+        while(true){
+            slow=nums[slow];
+            fast=nums[nums[fast]];
+            if(slow==fast) break;
         }
-        return -1;
+
+        slow=nums[0];
+        while(slow!=fast){
+            slow=nums[slow];
+            fast=nums[fast];
+        }
+
+        return slow;
     }
 }
