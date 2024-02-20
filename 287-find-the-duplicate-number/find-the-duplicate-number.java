@@ -25,11 +25,10 @@ class Solution {
         int slow=nums[0];
         int fast=nums[0];
 
-        while(true){
-            slow=nums[slow];
-            fast=nums[nums[fast]];
-            if(slow==fast) break;
-        }
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
 
         slow=nums[0];
         while(slow!=fast){
