@@ -22,7 +22,6 @@ class Solution {
         // }
         // return -1;
 
-        if(trust.length==0 && n==1) return 1;
         int count[]=new int[n+1];
         boolean person[]=new boolean[n+1];
         for(int i=0;i<trust.length;i++){
