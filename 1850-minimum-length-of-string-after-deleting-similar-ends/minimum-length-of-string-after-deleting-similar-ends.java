@@ -1,21 +1,18 @@
 class Solution {
     public int minimumLength(String s) {
-        int start=0;
-        int end=s.length()-1;
-        while(start<end){
-            if(s.charAt(start)==s.charAt(end)){
-                while(start<end-1 && s.charAt(start)==s.charAt(start+1)){
-                    start++;
-                }
-                while(end>start+1 && s.charAt(end)==s.charAt(end-1)){
-                    end--;
-                }
-                start++;
-                end--;
-            }else{
-                return end-start+1;
+        int left = 0;
+        int right = s.length() - 1;
+        
+        while (left < right && s.charAt(left) == s.charAt(right)) {
+            char current = s.charAt(left);
+            while (left <= right && s.charAt(left) == current) {
+                left++;
+            }
+            while (right >= left && s.charAt(right) == current) {
+                right--;
             }
         }
-        return end-start+1;
+        
+        return right - left + 1;
     }
 }
