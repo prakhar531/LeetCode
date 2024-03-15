@@ -6,9 +6,10 @@ class Solution {
         for(int i=0;i<len;i++){
             if(nums[i]==0){
                 count++;
+                if(count>1) return 0;
                 continue;
             }else{
-            pro *= nums[i];
+                pro *= nums[i];
             }
         }
         if(count==1){
@@ -33,7 +34,5 @@ class Solution {
             }
         }
         return ans;
-                
-        
     }
 }
