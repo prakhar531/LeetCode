@@ -6,7 +6,6 @@ class Solution {
         return str1.substring(0,len);        
     }
     public int gcd(int a,int b){
-        if(b==0) return a;
-        return gcd(b,a%b);
+        return b==0?a:gcd(b,a%b);
     }
 }
