@@ -17,7 +17,9 @@ class Solution {
         //     }
         // }
         // return ans;
-        
+        if (nums == null || nums.length == 0) { // Base Case
+            return 0;
+        }
         for(int i=0;i<nums.length;i++){
             if(nums[i]==0) nums[i]=-1;
         }
