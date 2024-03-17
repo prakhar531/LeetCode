@@ -7,6 +7,7 @@ class Solution {
         int start=intervals[0][0];
         int end=intervals[0][1];
         int i=1;
+
         while(i<intervals.length){
             int s=intervals[i][0];
             int e=intervals[i][1];
@@ -20,11 +21,6 @@ class Solution {
             i++;
         }
         ans.add(new int[]{start,end});
-
-        int arr[][]=new int[ans.size()][];
-        for( i=0;i<ans.size();i++){
-            arr[i]=ans.get(i);
-        }
-        return arr;
+        return ans.toArray(new int[ans.size()][]);
     }
 }
