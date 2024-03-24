@@ -24,20 +24,27 @@ class Solution {
 
 //Floyd's cycle detection-89% beats
     public int findDuplicate(int[] nums) {
-        int slow=nums[0];
-        int fast=nums[0];
+        // int slow=nums[0];
+        // int fast=nums[0];
 
-        do {
-            slow = nums[slow];
-            fast = nums[nums[fast]];
-        } while (slow != fast);
+        // do {
+        //     slow = nums[slow];
+        //     fast = nums[nums[fast]];
+        // } while (slow != fast);
 
-        slow=nums[0];
-        while(slow!=fast){
-            slow=nums[slow];
-            fast=nums[fast];
+        // slow=nums[0];
+        // while(slow!=fast){
+        //     slow=nums[slow];
+        //     fast=nums[fast];
+        // }
+
+        // return slow;
+
+        boolean present[]=new boolean[nums.length+1];
+        for(int num:nums) {
+            if(present[num]) return num;
+            present[num]=true;
         }
-
-        return slow;
+        return -1;
     }
 }
