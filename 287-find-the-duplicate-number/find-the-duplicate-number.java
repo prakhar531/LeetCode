@@ -21,6 +21,8 @@ class Solution {
     //     return -1;
     // }
 
+
+//Floyd's cycle detection-89% beats
     public int findDuplicate(int[] nums) {
         int slow=nums[0];
         int fast=nums[0];
