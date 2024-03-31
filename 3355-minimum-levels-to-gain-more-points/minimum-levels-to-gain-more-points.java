@@ -8,9 +8,9 @@ class Solution {
         for(int i=1;i<n;i++){
             prefix[i]=prefix[i-1]+possible[i];
         }
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n-1;i++){
             if(prefix[n-1]-prefix[i]<prefix[i]){
-                if(i!=n-1) return i+1;  
+                return i+1;  
             } 
         }
         return -1;
