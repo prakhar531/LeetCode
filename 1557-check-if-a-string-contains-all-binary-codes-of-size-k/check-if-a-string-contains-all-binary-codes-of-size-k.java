@@ -13,11 +13,13 @@ class Solution {
         // return false;
 
         HashSet<String> set=new HashSet<>();
+        int temp=(int)Math.pow(2,k);
         for(int i=k-1;i<s.length();i++){
             String str=s.substring(i-k+1,i+1);
             set.add(str);
+            if(set.size()==temp) return true;
         }
-        if(set.size()==Math.pow(2,k)) return true;
+        
         return false;
     }
 }
