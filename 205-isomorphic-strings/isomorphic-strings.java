@@ -2,6 +2,7 @@ class Solution {
     public boolean isIsomorphic(String s, String t) {
         if(s == null || s.length() <= 1) return true;
         HashMap<Character, Character> map = new HashMap<Character, Character>();
+        Set<Character> set=new HashSet<>();
         char sArr[]=s.toCharArray();
         char tArr[]=t.toCharArray();
 
@@ -10,15 +11,15 @@ class Solution {
             char a = sArr[i];
             char b = tArr[i];
             if(map.containsKey(a)){
-                 if(map.get(a).equals(b))
-                    continue;
-                else
+                 if(!map.get(a).equals(b))
                     return false;
             }else{
-                if(!map.containsValue(b))
-                    map.put(a,b);
-                else 
+                if(set.contains(b)){
                     return false;
+                }
+                map.put(a,b);
+                set.add(b);
+                
                 
             }
         }
