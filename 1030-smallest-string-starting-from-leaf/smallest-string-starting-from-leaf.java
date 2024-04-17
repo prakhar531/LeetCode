@@ -21,14 +21,13 @@ class Solution {
     }
     public void solve(TreeNode root,String curr){
         if(root==null) return;
-
         curr=(char)(root.val+'a')+curr;
         if(root.left==null&&root.right==null){
             if(small=="" || small.compareTo(curr)>0){
                 small=curr;
             }
         }
-        solve(root.right,curr);
-        solve(root.left,curr);
+        if(root.right!=null) solve(root.right,curr);
+        if(root.left!=null) solve(root.left,curr);
     }
 }
