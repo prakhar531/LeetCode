@@ -34,7 +34,7 @@ class Solution {
                 }
                 q.poll();
             }
-            ans.add(new ArrayList<>(list));
+            ans.add(list);
         }
         return ans;
     }
