@@ -13,6 +13,7 @@ class Solution {
         // }
         // return ans==Integer.MIN_VALUE?-1:ans;
 
+        if(nums.length<2) return -1;
         int[] sum = new int[1001];
         int max = -1;
         for (int n : nums) {
