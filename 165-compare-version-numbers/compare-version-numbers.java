@@ -12,6 +12,7 @@ class Solution {
         return -1;
     }
     public int compareVersion(String version1, String version2) {
+        if(version1.equals(version2)) return 0;
         String arr1[]=version1.split("[.]");
         String arr2[]=version2.split("[.]");
 
