@@ -26,12 +26,11 @@ class Solution {
         ListNode temp=head;
         while(head!=null){
             int curr=head.val;
-            max=Math.max(max,curr);
             if(curr<max){
                 prev.next=head.next;
             }else{
                 prev=head;
-                
+                max=curr;
             }
             head=head.next;
         }
