@@ -20,6 +20,7 @@ class Solution {
         return prev;
     }
     public ListNode removeNodes(ListNode head) {
+        if(head==null||head.next==null) return head;
         head=reverse(head);
         int max=Integer.MIN_VALUE;
         ListNode prev=null;
