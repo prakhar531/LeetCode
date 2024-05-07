@@ -37,22 +37,39 @@ class Solution {
     //     return reverse(head);
     // }
 
+    // public ListNode doubleIt(ListNode head) {
+    //     Stack<Integer> s=new Stack<>();
+    //     int nums=0;
+
+    //     while(head!=null){
+    //         s.push(head.val);
+    //         head=head.next;
+    //     }
+
+    //     ListNode tail=null;
+    //     while(!s.isEmpty()||nums!=0){
+    //         tail=new ListNode(0,tail);
+    //         if(!s.isEmpty()) nums+=s.pop()*2;
+    //         tail.val=nums%10;
+    //         nums/=10;
+    //     }
+    //     return tail;
+    // }
+
     public ListNode doubleIt(ListNode head) {
-        Stack<Integer> s=new Stack<>();
-        int nums=0;
+        ListNode head1 = new ListNode();
+        head1.next = head;
 
-        while(head!=null){
-            s.push(head.val);
-            head=head.next;
+        ListNode left = head1;
+        ListNode right = head;
+        while (right != null) {
+            if (right.val * 2 >= 10) {
+                left.val += 1;
+            }
+            right.val = (right.val * 2) % 10;
+            left = left.next;
+            right = right.next;
         }
-
-        ListNode tail=null;
-        while(!s.isEmpty()||nums!=0){
-            tail=new ListNode(0,tail);
-            if(!s.isEmpty()) nums+=s.pop()*2;
-            tail.val=nums%10;
-            nums/=10;
-        }
-        return tail;
+        return head1.val > 0 ? head1 : head;
     }
 }
