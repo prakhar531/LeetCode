@@ -16,22 +16,50 @@
 //     }
 // }
 
+// class Solution {
+//     List<List<Integer>> ans=new ArrayList<>();
+//     public List<List<Integer>> subsets(int[] nums) {
+//         Arrays.sort(nums);
+//         solve(nums,new ArrayList<>(),0);
+//         return ans;
+//     }
+//     public void solve(int[] nums, ArrayList list, int i){
+//         if(i==nums.length){
+//             ans.add(new ArrayList<>(list));
+//             return;
+//         }
+//         solve(nums,list,i+1);
+//         list.add(nums[i]);
+//         solve(nums,list,i+1);
+//         list.remove(list.size()-1);
+//     }
+
+// }
+
 class Solution {
-    List<List<Integer>> ans=new ArrayList<>();
+    List<List<Integer>> result;
     public List<List<Integer>> subsets(int[] nums) {
-        Arrays.sort(nums);
-        solve(nums,new ArrayList<>(),0);
-        return ans;
+        result = new ArrayList();
+        if(nums==null || nums.length==0) return result;
+        
+        subsets(nums,new ArrayList<Integer>(), 0);
+        return result;
     }
-    public void solve(int[] nums, ArrayList list, int i){
-        if(i==nums.length){
-            ans.add(new ArrayList<>(list));
+    
+    private void subsets(int[] nums, ArrayList<Integer> temp, int index) {
+        // base condition
+        if(index >= nums.length) {
+            result.add(new ArrayList<>(temp));
             return;
         }
-        solve(nums,list,i+1);
-        list.add(nums[i]);
-        solve(nums,list,i+1);
-        list.remove(list.size()-1);
+        
+        // main logic
+		// case 1 : we pick the element
+        temp.add(nums[index]);
+        subsets(nums, temp, index+1); // move ahead
+        temp.remove(temp.size()-1);
+        
+		// case 2 : we don't pick the element ( notice, we did not add the current element in our temporary list
+        subsets(nums, temp, index+1); // move ahead
     }
-
 }
