@@ -4,6 +4,7 @@ class Solution {
         for(int num:nums){
             max=Math.max(num,max);
         }
+        if(max==0 && nums.length>1) return -1;
         int arr[]=new int[max+1];
         for(int num:nums){
             arr[num]++;
