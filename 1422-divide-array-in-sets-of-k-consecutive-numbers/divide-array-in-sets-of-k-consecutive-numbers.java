@@ -1,34 +1,35 @@
 class Solution {
-    public boolean findsucessors(int[] hand, int groupSize, int i, int n) {
-        int f = hand[i] + 1;
-        hand[i] = -1;
-        int count = 1;
-        i += 1;
-        while (i < n && count < groupSize) {
-            if (hand[i] == f) {
-                f = hand[i] + 1;
-                hand[i] = -1;
-                count++;
-            }
-            i++;
-        }
-        if (count != groupSize)
-            return false;
-        else
-            return true;
-    }
     public boolean isPossibleDivide(int[] hand, int groupSize) {
-        int n = hand.length;
-        if (n % groupSize != 0)
-            return false;
         Arrays.sort(hand);
+        int n = hand.length;
+        if (n % groupSize != 0) {
+            return false;
+        }
+        int ks = n / groupSize;
+        int[] klen = new int[ks];
+        int[] kmax = new int[ks];
+        for (int i = 0; i < ks; i++) {
+            kmax[i] = -1;
+        }
+        int top = 0;
         int i = 0;
-        for (; i < n; i++) {
-            if (hand[i] >= 0) {
-                if (!findsucessors(hand, groupSize, i, n))
+        while (i < hand.length) {
+            int j = top;
+            int prev = hand[i];
+            while (j < ks && prev == hand[i]) {
+                if (kmax[j] != -1 && kmax[j] != hand[i] - 1) {
                     return false;
+                }
+                kmax[j] = hand[i];
+                klen[j]++;
+                prev = hand[i];
+                if (top == j && klen[j] == groupSize) {
+                    top = top + 1;
+                }
+                i = i + 1;
+                j = j + 1;
             }
         }
-        return true;
+        return top == ks;
     }
 }
