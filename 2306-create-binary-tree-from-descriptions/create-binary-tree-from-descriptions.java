@@ -122,87 +122,92 @@
 //     }
 // }
 
-// class Solution {
-//     public TreeNode createBinaryTree(int[][] descriptions) {
-       
-//         Map<Integer,TreeNode> map=new HashMap<>();
-//         Set<Integer> children = new HashSet<>();
-
-//         for (int[] desc : descriptions) {
-//             int parent = desc[0];
-//             int child = desc[1];
-//             boolean isLeft = desc[2]==1;
-
-//             if (!map.containsKey(parent)) {
-//                 map.put(parent, new TreeNode(parent));
-//             }
-//             if (!map.containsKey(child)) {
-//                 map.put(child, new TreeNode(child));
-//             }
-//             children.add(child);
-//             if(isLeft){
-//                 map.get(parent).left=map.get(child);
-//             }else{
-//                 map.get(parent).right=map.get(child);
-//             }
-
-//         }
-//         int root=0;
-//         for(int key:map.keySet()){
-//                 if(!children.contains(key)){
-//                     root=key;
-//                     break;
-//                 }
-//         }
-
-//         return map.get(root);
-
-//     }
-// }
-
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
+    public TreeNode createBinaryTree(final int[][] descriptions) {
+        final TreeNode[] nodes = new TreeNode[100001];
+        final boolean[] children = new boolean[100001];
 
-    public TreeNode createBinaryTree(int[][] descriptions) {
-        // Maps values to TreeNode pointers
-        Map<Integer, TreeNode> nodeMap = new HashMap<>();
+        for(final int[] description : descriptions) {
+            if(nodes[description[0]] == null)
+                nodes[description[0]] = new TreeNode(description[0]);
 
-        // Stores values which are children in the descriptions
-        Set<Integer> children = new HashSet<>();
+            if(nodes[description[1]] == null)
+                nodes[description[1]] = new TreeNode(description[1]);
 
-        // Iterate through descriptions to create nodes and set up tree structure
-        for (int[] description : descriptions) {
-            // Extract parent value, child value, and whether it is a
-            // left child (1) or right child (0)
-            int parentValue = description[0];
-            int childValue = description[1];
-            boolean isLeft = description[2] == 1;
+            if(description[2] == 0)
+                nodes[description[0]].right = nodes[description[1]];
+            else
+                nodes[description[0]].left = nodes[description[1]];
 
-            // Create parent and child nodes if not already created
-            if (!nodeMap.containsKey(parentValue)) {
-                nodeMap.put(parentValue, new TreeNode(parentValue));
-            }
-            if (!nodeMap.containsKey(childValue)) {
-                nodeMap.put(childValue, new TreeNode(childValue));
-            }
-
-            // Attach child node to parent's left or right branch
-            if (isLeft) {
-                nodeMap.get(parentValue).left = nodeMap.get(childValue);
-            } else {
-                nodeMap.get(parentValue).right = nodeMap.get(childValue);
-            }
-
-            // Mark child as a child in the set
-            children.add(childValue);
+            children[description[1]] = true;
         }
 
-        // Find and return the root node
-        for (TreeNode node : nodeMap.values()) {
-            if (!children.contains(node.val)) {
-                return node; // Root node found
-            }
-        }
+        for(final int[] description : descriptions)
+            if(!children[description[0]])
+                return nodes[description[0]];
 
-        return null; // Should not occur according to problem statement
+        return null;
     }
 }
+
+// class Solution {
+
+//     public TreeNode createBinaryTree(int[][] descriptions) {
+//         // Maps values to TreeNode pointers
+//         Map<Integer, TreeNode> nodeMap = new HashMap<>();
+
+//         // Stores values which are children in the descriptions
+//         Set<Integer> children = new HashSet<>();
+
+//         // Iterate through descriptions to create nodes and set up tree structure
+//         for (int[] description : descriptions) {
+//             // Extract parent value, child value, and whether it is a
+//             // left child (1) or right child (0)
+//             int parentValue = description[0];
+//             int childValue = description[1];
+//             boolean isLeft = description[2] == 1;
+
+//             // Create parent and child nodes if not already created
+//             if (!nodeMap.containsKey(parentValue)) {
+//                 nodeMap.put(parentValue, new TreeNode(parentValue));
+//             }
+//             if (!nodeMap.containsKey(childValue)) {
+//                 nodeMap.put(childValue, new TreeNode(childValue));
+//             }
+
+//             // Attach child node to parent's left or right branch
+//             if (isLeft) {
+//                 nodeMap.get(parentValue).left = nodeMap.get(childValue);
+//             } else {
+//                 nodeMap.get(parentValue).right = nodeMap.get(childValue);
+//             }
+
+//             // Mark child as a child in the set
+//             children.add(childValue);
+//         }
+
+//         // Find and return the root node
+//         for (TreeNode node : nodeMap.values()) {
+//             if (!children.contains(node.val)) {
+//                 return node; // Root node found
+//             }
+//         }
+
+//         return null; // Should not occur according to problem statement
+//     }
+// }
