@@ -122,40 +122,87 @@
 //     }
 // }
 
-class Solution {
-    public TreeNode createBinaryTree(int[][] descriptions) {
+// class Solution {
+//     public TreeNode createBinaryTree(int[][] descriptions) {
        
-        Map<Integer,TreeNode> map=new HashMap<>();
+//         Map<Integer,TreeNode> map=new HashMap<>();
+//         Set<Integer> children = new HashSet<>();
+
+//         for (int[] desc : descriptions) {
+//             int parent = desc[0];
+//             int child = desc[1];
+//             boolean isLeft = desc[2]==1;
+
+//             if (!map.containsKey(parent)) {
+//                 map.put(parent, new TreeNode(parent));
+//             }
+//             if (!map.containsKey(child)) {
+//                 map.put(child, new TreeNode(child));
+//             }
+//             children.add(child);
+//             if(isLeft){
+//                 map.get(parent).left=map.get(child);
+//             }else{
+//                 map.get(parent).right=map.get(child);
+//             }
+
+//         }
+//         int root=0;
+//         for(int key:map.keySet()){
+//                 if(!children.contains(key)){
+//                     root=key;
+//                     break;
+//                 }
+//         }
+
+//         return map.get(root);
+
+//     }
+// }
+
+class Solution {
+
+    public TreeNode createBinaryTree(int[][] descriptions) {
+        // Maps values to TreeNode pointers
+        Map<Integer, TreeNode> nodeMap = new HashMap<>();
+
+        // Stores values which are children in the descriptions
         Set<Integer> children = new HashSet<>();
 
-        for (int[] desc : descriptions) {
-            int parent = desc[0];
-            int child = desc[1];
-            boolean isLeft = desc[2]==1;
+        // Iterate through descriptions to create nodes and set up tree structure
+        for (int[] description : descriptions) {
+            // Extract parent value, child value, and whether it is a
+            // left child (1) or right child (0)
+            int parentValue = description[0];
+            int childValue = description[1];
+            boolean isLeft = description[2] == 1;
 
-            if (!map.containsKey(parent)) {
-                map.put(parent, new TreeNode(parent));
+            // Create parent and child nodes if not already created
+            if (!nodeMap.containsKey(parentValue)) {
+                nodeMap.put(parentValue, new TreeNode(parentValue));
             }
-            if (!map.containsKey(child)) {
-                map.put(child, new TreeNode(child));
-            }
-            children.add(child);
-            if(isLeft){
-                map.get(parent).left=map.get(child);
-            }else{
-                map.get(parent).right=map.get(child);
+            if (!nodeMap.containsKey(childValue)) {
+                nodeMap.put(childValue, new TreeNode(childValue));
             }
 
+            // Attach child node to parent's left or right branch
+            if (isLeft) {
+                nodeMap.get(parentValue).left = nodeMap.get(childValue);
+            } else {
+                nodeMap.get(parentValue).right = nodeMap.get(childValue);
+            }
+
+            // Mark child as a child in the set
+            children.add(childValue);
         }
-        int root=0;
-        for(int key:map.keySet()){
-                if(!children.contains(key)){
-                    root=key;
-                    break;
-                }
+
+        // Find and return the root node
+        for (TreeNode node : nodeMap.values()) {
+            if (!children.contains(node.val)) {
+                return node; // Root node found
+            }
         }
 
-        return map.get(root);
-
+        return null; // Should not occur according to problem statement
     }
 }
