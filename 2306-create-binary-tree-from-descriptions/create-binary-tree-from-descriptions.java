@@ -63,62 +63,99 @@
 //     }
 // }
 
-class Solution {
+// class Solution {
 
+//     public TreeNode createBinaryTree(int[][] descriptions) {
+//         // Step 1: Organize data
+//         Map<Integer, List<int[]>> parentToChildren = new HashMap<>();
+//         Set<Integer> allNodes = new HashSet<>();
+//         Set<Integer> children = new HashSet<>();
+
+//         for (int[] desc : descriptions) {
+//             int parent = desc[0];
+//             int child = desc[1];
+//             int isLeft = desc[2];
+
+//             // Store child information under parent node
+//             if (!parentToChildren.containsKey(parent)) {
+//                 parentToChildren.put(parent, new ArrayList<>());
+//             }
+//             parentToChildren.get(parent).add(new int[] { child, isLeft });
+//             allNodes.add(parent);
+//             allNodes.add(child);
+//             children.add(child);
+//         }
+
+//         // Step 2: Find the root
+//         int rootVal = 0;
+//         for (int node : allNodes) {
+//             if (!children.contains(node)) {
+//                 rootVal = node;
+//                 break;
+//             }
+//         }
+
+//         // Step 3 & 4: Build the tree using DFS
+//         return dfs(parentToChildren, rootVal);
+//     }
+
+//     // DFS function to recursively build binary tree
+//     private TreeNode dfs(Map<Integer, List<int[]>> parentToChildren, int val) {
+//         // Create new TreeNode for current value
+//         TreeNode node = new TreeNode(val);
+
+//         // If current node has children, recursively build them
+//         if (parentToChildren.containsKey(val)) {
+//             for (int[] childInfo : parentToChildren.get(val)) {
+//                 int child = childInfo[0];
+//                 int isLeft = childInfo[1];
+
+//                 // Attach child node based on isLeft flag
+//                 if (isLeft == 1) {
+//                     node.left = dfs(parentToChildren, child);
+//                 } else {
+//                     node.right = dfs(parentToChildren, child);
+//                 }
+//             }
+//         }
+//         return node;
+//     }
+// }
+
+class Solution {
     public TreeNode createBinaryTree(int[][] descriptions) {
-        // Step 1: Organize data
-        Map<Integer, List<int[]>> parentToChildren = new HashMap<>();
-        Set<Integer> allNodes = new HashSet<>();
+       
+        Map<Integer,TreeNode> map=new HashMap<>();
         Set<Integer> children = new HashSet<>();
 
         for (int[] desc : descriptions) {
             int parent = desc[0];
             int child = desc[1];
-            int isLeft = desc[2];
+            boolean isLeft = desc[2]==1;
 
-            // Store child information under parent node
-            if (!parentToChildren.containsKey(parent)) {
-                parentToChildren.put(parent, new ArrayList<>());
+            if (!map.containsKey(parent)) {
+                map.put(parent, new TreeNode(parent));
             }
-            parentToChildren.get(parent).add(new int[] { child, isLeft });
-            allNodes.add(parent);
-            allNodes.add(child);
+            if (!map.containsKey(child)) {
+                map.put(child, new TreeNode(child));
+            }
             children.add(child);
-        }
-
-        // Step 2: Find the root
-        int rootVal = 0;
-        for (int node : allNodes) {
-            if (!children.contains(node)) {
-                rootVal = node;
-                break;
+            if(isLeft){
+                map.get(parent).left=map.get(child);
+            }else{
+                map.get(parent).right=map.get(child);
             }
+
         }
-
-        // Step 3 & 4: Build the tree using DFS
-        return dfs(parentToChildren, rootVal);
-    }
-
-    // DFS function to recursively build binary tree
-    private TreeNode dfs(Map<Integer, List<int[]>> parentToChildren, int val) {
-        // Create new TreeNode for current value
-        TreeNode node = new TreeNode(val);
-
-        // If current node has children, recursively build them
-        if (parentToChildren.containsKey(val)) {
-            for (int[] childInfo : parentToChildren.get(val)) {
-                int child = childInfo[0];
-                int isLeft = childInfo[1];
-
-                // Attach child node based on isLeft flag
-                if (isLeft == 1) {
-                    node.left = dfs(parentToChildren, child);
-                } else {
-                    node.right = dfs(parentToChildren, child);
+        int root=0;
+        for(int key:map.keySet()){
+                if(!children.contains(key)){
+                    root=key;
+                    break;
                 }
-            }
         }
 
-        return node;
+        return map.get(root);
+
     }
 }
