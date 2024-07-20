@@ -1,3 +1,22 @@
+// class Solution {
+
+//     public int[][] restoreMatrix(int[] rowSum, int[] colSum) {
+//         int N = rowSum.length;
+//         int M = colSum.length;
+
+//         int[][] origMatrix = new int[N][M];
+//         for (int i = 0; i < N; i++) {
+//             for (int j = 0; j < M; j++) {
+//                 origMatrix[i][j] = Math.min(rowSum[i], colSum[j]);
+
+//                 rowSum[i] -= origMatrix[i][j];
+//                 colSum[j] -= origMatrix[i][j];
+//             }
+//         }
+
+//         return origMatrix;
+//     }
+// }
 class Solution {
 
     public int[][] restoreMatrix(int[] rowSum, int[] colSum) {
@@ -5,12 +24,18 @@ class Solution {
         int M = colSum.length;
 
         int[][] origMatrix = new int[N][M];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                origMatrix[i][j] = Math.min(rowSum[i], colSum[j]);
+        int i = 0, j = 0;
 
-                rowSum[i] -= origMatrix[i][j];
-                colSum[j] -= origMatrix[i][j];
+        while (i < N && j < M) {
+            origMatrix[i][j] = Math.min(rowSum[i], colSum[j]);
+
+            rowSum[i] -= origMatrix[i][j];
+            colSum[j] -= origMatrix[i][j];
+
+            if (rowSum[i] == 0) {
+                i++;
+            } else {
+                j++;
             }
         }
 
