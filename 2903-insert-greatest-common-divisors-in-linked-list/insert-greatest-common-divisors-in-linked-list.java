@@ -9,39 +9,32 @@
  * }
  */
 class Solution {
-
+    public int gcd(int a, int b){
+        if(a == 1 || b==1){
+            return 1;
+        }
+        while(b !=0){
+            int rem = a % b;
+            a = b;
+            b= rem;
+        }
+        return a;
+    }
     public ListNode insertGreatestCommonDivisors(ListNode head) {
-        // If the list contains only one node, return the head as no insertion is needed
-        if (head.next == null) return head;
-
-        // Initialize pointers to traverse the list
-        ListNode node1 = head;
-        ListNode node2 = head.next;
-
-        // Traverse the linked list
-        while (node2 != null) {
-            int gcdValue = calculateGCD(node1.val, node2.val);
-            ListNode gcdNode = new ListNode(gcdValue);
-
-            // Insert the GCD node between node1 and node2
-            node1.next = gcdNode;
-            gcdNode.next = node2;
-
-            // Move to the next pair of nodes
-            node1 = node2;
-            node2 = node2.next;
+        if(head.next == null){
+            return head;
+        }
+        ListNode temp = head;
+        ListNode temp1 = head.next;
+        while(temp1 !=null){
+            int num = gcd(temp.val,temp1.val);
+            ListNode a = new ListNode(num);
+            temp.next = a;
+            a.next = temp1;
+            temp = temp1;
+            temp1=temp1.next;
         }
 
         return head;
-    }
-
-    // Helper method to calculate the greatest common divisor using the Euclidean algorithm
-    private int calculateGCD(int a, int b) {
-        while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a;
     }
 }
